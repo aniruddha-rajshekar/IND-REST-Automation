@@ -1,0 +1,5 @@
+scriptfiles,yamfiles
+ind_automation_dlr.py,get_dlr_device_details_by_id.yaml
+ind_automation_dlr.py,get_dlr_instances_by_group.yaml
+ind_automation_dlr.py,get_dlr_topology_by_group.yaml
+ind_automation_dlr.py,get_dlr_node_summary_by_id.yaml

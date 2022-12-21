@@ -1,0 +1,25 @@
+{
+  "instanceId": 1,
+  "slot": 3,
+  "ipAddress": "192.10.10.25",
+  "role": "RING_NODE",
+  "status": "NORMAL",
+  "activeSupIpAddress": "192.10.10.20",
+  "activeSupMacAddress": "f4:54:33:17:a8:07",
+  "activeSupPrecedence": 113,
+  "gatewayStatus": "GATEWAY_NOT_ENABLED",
+  "port1": "None",
+  "port2": "None",
+  "dlrMembersIP": [
+    "192.10.10.20",
+    "192.10.10.21",
+    "192.10.10.25",
+    "192.10.10.23"
+  ],
+  "dlrMembersMAC": [
+    "f4:54:33:17:a8:07",
+    "f4:54:33:c8:95:07",
+    "00:1d:9c:ca:85:a6",
+    "e4:90:69:a9:14:55"
+  ]
+}

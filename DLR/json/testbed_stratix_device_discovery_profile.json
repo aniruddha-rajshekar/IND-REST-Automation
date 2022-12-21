@@ -1,0 +1,9 @@
+{
+  "endIp": "100.100.100.111",
+  "groupId": 1,
+  "hopCountLimit": 0,
+  "isLinkLayerDiscovery": "false",
+  "name": "Stratix Devices TestBed",
+  "discoverRelatedDevices": false,
+  "startIp": "100.100.100.111"
+}

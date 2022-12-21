@@ -1,0 +1,9 @@
+{
+  "endIp": "10.195.119.166",
+  "groupId": 1,
+  "hopCountLimit": 0,
+  "isLinkLayerDiscovery": "false",
+  "name": "DLR Devices TestBed 4",
+  "discoverRelatedDevices": false,
+  "startIp": "10.195.119.165"
+}

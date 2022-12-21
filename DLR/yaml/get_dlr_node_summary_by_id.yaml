@@ -1,0 +1,403 @@
+testbed:
+   name: GETDLRNodeSummaryByIDTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      testcaseA:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for invalid device ID type'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          clear_all: 'True'
+          ip_address: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseB:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for non-existent device'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.22.4.112'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseC:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Get DLR Device Details by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_other_device_discovery_profile.json'
+            - 'testbed_ie_device_discovery_profile.json'
+            - 'testbed_other_device_discovery_profile_2.json'
+            - 'testbed_stratix_device_discovery_profile.json'
+          access_profile_file:
+            - 'testbed_access_profile_cip_discovery.json'
+            - 'testbed_access_profile_non_secure_mode_2.json'
+            - 'testbed_access_profile_cip_discovery.json'
+            - 'testbed_access_profile_non_secure_mode_3.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseD:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for Other device that is not DLR capable'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '172.27.162.199'
+          empty: 'True'
+          message: 'DLR not supported for this device.'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseE:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for Licensed device that is not DLR capable'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '172.27.162.165'
+          licensed: 'True'
+          empty: 'True'
+          message: 'No DLR data available.'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseF:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for Other device that is DLR capable but not in DLR ring'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '172.27.162.134'
+          licensed: 'True'
+          empty: 'True'
+          message: 'No DLR data available.'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseG:
+        function: 'dlr'
+        http _method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for Licensed device that is DLR capable but not in DLR ring'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.111'
+          licensed: 'True'
+          empty: 'True'
+          message: 'No DLR data available.'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseH:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Get DLR Device Details by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_dlr_device_discovery_profile.json'
+            - 'testbed_dlr_device_discovery_profile_5.json'
+          access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseI:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.161 in Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.161'
+          licensed: 'False'
+          empty: 'True'
+          message: 'Please move the device to licensed state to monitor the DLR status.'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseJ:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.161 Instance ID: 3'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.161'
+          licensed: 'True'
+          empty: 'False'
+          supervisor_ip: '10.195.119.161'
+          instance_id: '3'
+          dlr_node_summary_template: 'dlr_node_summary_161_inst_3.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseK:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.164 Instance ID: 3'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.164'
+          licensed: 'True'
+          empty: 'False'
+          instance_id: '3'
+          supervisor_ip: '10.195.119.161'
+          dlr_node_summary_template: 'dlr_node_summary_164_inst_3.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseL:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.164 with instanceId and no supervisorNodeId'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.164'
+          licensed: 'False'
+          empty: 'False'
+          instance_id: '3'
+          dlr_node_summary_template: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseM:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.164 with supervisorNodeId and no instanceId'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.164'
+          licensed: 'False'
+          empty: 'False'
+          supervisor_ip: '10.195.119.161'
+          dlr_node_summary_template: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseN:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.164 with no supervisorNodeId and no instanceId'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.164'
+          licensed: 'False'
+          empty: 'False'
+          dlr_node_summary_template: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseO:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.164 with invalid supervisorNodeId type'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.164'
+          licensed: 'False'
+          supervisor_ip: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseP:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.164 with non-existent supervisorNodeId'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.164'
+          licensed: 'False'
+          empty: 'False'
+          supervisor_ip: '10.22.4.16'
+          dlr_node_summary_template: 'null'
+          no_sup: 'True'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseQ:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.164 non-existent instanceId'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.164'
+          licensed: 'False'
+          instance_id: '6'
+          supervisor_ip: '10.195.119.161'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseR:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.164 invalid instanceId type'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.164'
+          licensed: 'False'
+          instance_id: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseS:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.162 Instance ID: 1'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.162'
+          licensed: 'True'
+          empty: 'False'
+          instance_id: '1'
+          supervisor_ip: '10.195.119.161'
+          dlr_node_summary_template: 'dlr_node_summary_162_inst_1.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseT:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 10.195.119.162 Instance ID: 2'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.162'
+          licensed: 'False'
+          empty: 'False'
+          instance_id: '2'
+          supervisor_ip: '10.195.119.162'
+          dlr_node_summary_template: 'dlr_node_summary_162_inst_2.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseU:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Get DLR Device Details by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_dlr_device_discovery_profile_3.json'
+          access_profile_file:
+            - 'testbed_access_profile_cip_discovery.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseV:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Move 1st level CIP backplane device 10.195.119.172 to Licensed'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.172'
+          licensed: 'True'
+          empty: 'True'
+          message: 'No DLR data available.'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseW:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 192.10.10.22 Instance ID: 1 Slot:3'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '192.10.10.22'
+          licensed: 'True'
+          empty: 'False'
+          instance_id: '1'
+          slot: '3'
+          supervisor_ip: '192.10.10.22'
+          dlr_node_summary_template: 'dlr_node_summary_22_inst_1_slot_3.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseX:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 192.10.10.22 Instance ID: 1 and invalid slot'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '192.10.10.22'
+          licensed: 'False'
+          empty: 'False'
+          instance_id: '1'
+          slot: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseY:
+        function: 'dlr'
+        http_method: 'GETdlrnodesummarybyid'
+        entity_title: 'Get DLR Device Details for 192.10.10.22 Instance ID: 1 and non-existent slot'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '192.10.10.22'
+          licensed: 'False'
+          empty: 'False'
+          instance_id: '1'
+          slot: '12'
+          supervisor_ip: '192.10.10.22'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseZZZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Get DLR Device Details by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

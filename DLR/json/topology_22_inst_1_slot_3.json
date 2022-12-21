@@ -1,0 +1,44 @@
+{
+  "instanceId": 1,
+  "status": "NORMAL",
+  "nodes": [
+    {
+      "ipAddress": "192.60.10.20",
+      "slot": 3,
+      "role": "ACTIVE_SUPERVISOR",
+      "status": "NORMAL",
+      "gatewayStatus": "GATEWAY_NOT_ENABLED"
+    },
+    {
+      "ipAddress": "192.60.10.22",
+      "slot": "None",
+      "role": "BACKUP_SUPERVISOR",
+      "status": "NORMAL",
+      "gatewayStatus": "GATEWAY_NOT_ENABLED"
+    },
+    {
+      "ipAddress": "192.60.10.2",
+      "slot": "None",
+      "role": "RING_NODE",
+      "status": "NORMAL",
+      "gatewayStatus": "GATEWAY_NOT_ENABLED"
+    }
+  ],
+  "links": [
+    {
+      "source": "192.60.10.20",
+      "target": "192.60.10.22",
+      "status": "LINK_UP"
+    },
+    {
+      "source": "192.60.10.2",
+      "target": "192.60.10.22",
+      "status": "LINK_UP"
+    },
+    {
+      "source": "192.60.10.2",
+      "target": "192.60.10.22",
+      "status": "BLOCKED"
+    }
+  ]
+}
