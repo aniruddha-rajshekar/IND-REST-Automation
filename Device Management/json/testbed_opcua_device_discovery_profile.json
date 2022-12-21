@@ -1,0 +1,9 @@
+{
+  "endIp": "172.27.162.225",
+  "groupId": 1,
+  "hopCountLimit": 0,
+  "isLinkLayerDiscovery": "false",
+  "name": "OPC UA Device Testbed",
+  "discoverRelatedDevices": false,
+  "startIp": "172.27.162.225"
+}

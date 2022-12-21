@@ -1,0 +1,724 @@
+testbed:
+   name: POSTDevicePortConfigTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddLicensedDevices:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Licensed Devices for POST Port Config Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file:
+            - 'testbed_ie_device_discovery_profile_3.json'
+            - 'testbed_ie_device_discovery_profile_4.json'
+            - 'testbed_ie4000_device_discovery_profile.json'
+            - 'testbed_ie5000_device_discovery_profile.json'
+            - 'testbed_ie4010_device_discovery_profile.json'
+            - 'testbed_stratix_device_discovery_profile_2.json'
+            - 'testbed_stratix_device_discovery_profile_3.json'
+           access_profile_file:
+            - 'testbed_access_profile_secure_mode.json'
+            - 'testbed_access_profile_secure_mode.json'
+            - 'testbed_access_profile_secure_mode.json'
+            - 'testbed_access_profile_secure_mode.json'
+            - 'testbed_access_profile_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseA:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE2000 with speed:100, access_vlan:152, shutdown:True, duplex:half'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.4'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'True'
+           speed: '100'
+           access_vlan: '152'
+           shutdown: 'True'
+           duplex: 'half'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseB:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE2000 with speed:1000'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.4'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'False'
+           speed: '1000'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseC:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE2000 with speed:auto, access_vlan:1, shutdown:True, duplex:auto'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.4'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'False'
+           speed: 'auto'
+           access_vlan: '1'
+           shutdown: 'False'
+           duplex: 'auto'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseD:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE2000 with access_vlan:16'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.4'
+           port_name: 'GigabitEthernet1/2'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: '16'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseE:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE3000 with speed:100, access_vlan:152, shutdown:True, duplex:half'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.27'
+           port_name: 'FastEthernet1/3'
+           licensed_state: 'True'
+           speed: '100'
+           access_vlan: '152'
+           shutdown: 'True'
+           duplex: 'half'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseF:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE3000 with speed:1000'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.27'
+           port_name: 'FastEthernet1/3'
+           licensed_state: 'False'
+           speed: '1000'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseG:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE3000 with speed:auto, access_vlan:1, shutdown:False, duplex:auto'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.27'
+           port_name: 'FastEthernet1/3'
+           licensed_state: 'False'
+           speed: 'auto'
+           access_vlan: '1'
+           shutdown: 'False'
+           duplex: 'auto'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseH:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE3000 with access_vlan:16'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.27'
+           port_name: 'FastEthernet2/6'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: '16'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseI:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4000 with speed:1000, access_vlan:152, shutdown:True, duplex:full'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.17'
+           port_name: 'GigabitEthernet1/11'
+           licensed_state: 'True'
+           speed: '1000'
+           access_vlan: '152'
+           shutdown: 'True'
+           duplex: 'full'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseJ:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4000 with speed:10000'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.17'
+           port_name: 'GigabitEthernet1/11'
+           licensed_state: 'False'
+           speed: '10000'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseK:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4000 with duplex:half'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.17'
+           port_name: 'GigabitEthernet1/11'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'half'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseL:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4000 with speed:auto, access_vlan:1, shutdown:False'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.17'
+           port_name: 'GigabitEthernet1/11'
+           licensed_state: 'False'
+           speed: 'auto'
+           access_vlan: '1'
+           shutdown: 'False'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseM:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4000 with duplex:auto'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.17'
+           port_name: 'GigabitEthernet1/11'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'auto'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseN:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4000 with access_vlan:16'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.17'
+           port_name: 'GigabitEthernet1/6'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: '16'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseO:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE5000 with speed:1000, access_vlan:152, shutdown:True, duplex:full'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.57'
+           port_name: 'GigabitEthernet1/3'
+           licensed_state: 'True'
+           speed: '1000'
+           access_vlan: '152'
+           shutdown: 'True'
+           duplex: 'full'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseP:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE5000 with speed:10000'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.57'
+           port_name: 'GigabitEthernet1/3'
+           licensed_state: 'False'
+           speed: '10000'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseQ:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE5000 with duplex:half'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.57'
+           port_name: 'GigabitEthernet1/3'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'half'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseR:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE5000 with speed:auto, access_vlan:1, shutdown:False'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.57'
+           port_name: 'GigabitEthernet1/3'
+           licensed_state: 'False'
+           speed: 'auto'
+           access_vlan: '1'
+           shutdown: 'False'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseS:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE5000 with duplex:auto'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.57'
+           port_name: 'GigabitEthernet1/3'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'auto'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseT:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE5000 with access_vlan:16'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.57'
+           port_name: 'GigabitEthernet1/16'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: '16'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseU:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4010 with speed:100, access_vlan:152, shutdown:True, duplex:full'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.189'
+           port_name: 'GigabitEthernet1/12'
+           licensed_state: 'True'
+           speed: '100'
+           access_vlan: '152'
+           shutdown: 'True'
+           duplex: 'full'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseV:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4010 with speed:10000'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.189'
+           port_name: 'GigabitEthernet1/12'
+           licensed_state: 'False'
+           speed: '10000'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseW:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4010 with speed:auto, access_vlan:1, shutdown:False, duplex:auto'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.189'
+           port_name: 'GigabitEthernet1/12'
+           licensed_state: 'False'
+           speed: 'auto'
+           access_vlan: '1'
+           shutdown: 'False'
+           duplex: 'auto'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseX:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for IE4010 with access_vlan:16'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.189'
+           port_name: 'GigabitEthernet1/25'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: '16'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseY:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-MS with speed:100, access_vlan:152, shutdown:True, duplex:half'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.116'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'True'
+           speed: '100'
+           access_vlan: '152'
+           shutdown: 'True'
+           duplex: 'half'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZ:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-MS with speed:auto, access_vlan:1, shutdown:False, duplex:auto'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.116'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'False'
+           speed: 'auto'
+           access_vlan: '1'
+           shutdown: 'False'
+           duplex: 'auto'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZA:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-MS with access_vlan:16'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.116'
+           port_name: 'FastEthernet2/1'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: '16'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZB:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-HMS with speed:100, access_vlan:152, shutdown:True, duplex:full'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.117'
+           port_name: 'FastEthernet1/10'
+           licensed_state: 'True'
+           speed: '100'
+           access_vlan: '152'
+           shutdown: 'True'
+           duplex: 'full'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZC:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-HMS with speed:auto, access_vlan:1, shutdown:False'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.117'
+           port_name: 'FastEthernet1/10'
+           licensed_state: 'False'
+           speed: 'auto'
+           access_vlan: '1'
+           shutdown: 'False'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZD:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-HMS with duplex:auto'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.117'
+           port_name: 'FastEthernet1/10'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'auto'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZE:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-HMS with access_vlan:16'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.117'
+           port_name: 'GigabitEthernet1/4'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: '16'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZF:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-BMS with speed:100, access_vlan:152, shutdown:True, duplex:half'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.120'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'True'
+           speed: '100'
+           access_vlan: '152'
+           shutdown: 'True'
+           duplex: 'half'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZG:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-BMS with speed:10, access_vlan:153, shutdown:True, duplex:full'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.120'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'False'
+           speed: '10'
+           access_vlan: '153'
+           shutdown: 'True'
+           duplex: 'full'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZH:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for 1783-BMS with speed:auto, access_vlan:1, shutdown:False, duplex:auto'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.120'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'False'
+           speed: 'auto'
+           access_vlan: '1'
+           shutdown: 'False'
+           duplex: 'auto'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZI:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for invalid Device ID type'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: 'test'
+           port_name: 'FastEthernet'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'False'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseZJ:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for invalid Port ID type'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.4'
+           port_name: 'test'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'False'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseZK:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for empty request body'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.4'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'True'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'null'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseZL:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for non-existent Device'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '10.22.6.140'
+           port_name: 'FastEthernet1/2'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'False'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseZM:
+        function: 'device_management'
+        http_method: 'POSTdeviceportconfig'
+        entity_title: 'POST Port Config for non-existent Port'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.4'
+           port_name: 'FastEthernet1/288'
+           licensed_state: 'False'
+           speed: 'null'
+           access_vlan: 'null'
+           shutdown: 'False'
+           duplex: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all POST Port Config Tests'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

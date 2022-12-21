@@ -1,0 +1,963 @@
+testbed:
+   name: GetAllSupportedDevicesByParameterTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddSupportedDevices:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Supported Devices for Get All Supported Devices By Parameter Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file:
+            - 'testbed_ie_device_discovery_profile.json'
+            - 'testbed_stratix_device_discovery_profile.json'
+           access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseA:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:1, offset:0, field:supportedDevice.deviceAdminState, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 1
+           offset: 0
+           field: 'supportedDevice.deviceAdminState'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseB:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:2, offset:0, field:supportedDevice.productId, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 2
+           offset: 0
+           field: 'supportedDevice.productId'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseC:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:2, offset:0, field:supportedDevice.ipAddress, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 2
+           offset: 0
+           field: 'supportedDevice.ipAddress'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseD:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:-1, offset:0, field:supportedDevice.productId, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: -1
+           offset: 0
+           field: 'supportedDevice.productId'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseE:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:0, offset:0, field:supportedDevice.productId, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 0
+           offset: 0
+           field: 'supportedDevice.productId'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseF:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:1, offset:-1, field:supportedDevice.productId, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 1
+           offset: -1
+           field: 'supportedDevice.productId'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseG:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:461168601, offset:0, field:supportedDevice.productId, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 461168601
+           offset: 0
+           field: 'supportedDevice.productId'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseH:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:461168601, offset:1, field:supportedDevice.productId, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 461168601
+           offset: 1
+           field: 'supportedDevice.productId'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseI:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.productId, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.productId'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseJ:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:null, direction:null'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'null'
+           direction: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseK:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:9223372036854775807, offset:0, field:supportedDevice.productId,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 9223372036854775807
+           offset: 0
+           field: 'supportedDevice.productId'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseL:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.productId, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.productId'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseM:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.productId, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.productId'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseN:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.mgmtVlanName, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.mgmtVlanName'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseO:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.mgmtVlanName, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.mgmtVlanName'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseP:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.contact, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.contact'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseQ:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.contact, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.contact'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseR:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.vendorName, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.vendorName'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseS:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.vendorName, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.vendorName'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseT:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.deviceType, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.deviceType'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseU:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.deviceType, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.deviceType'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseV:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.versionId, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.versionId'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseW:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.versionId, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.versionId'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseX:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.licenseType, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.licenseType'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseY:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.licenseType, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.licenseType'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseZ:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.description, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.description'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZA:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.description, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.description'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseZB:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.location, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.location'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZC:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.location, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.location'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseZD:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.licenseExpired, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.licenseExpired'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZE:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.licenseExpired, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.licenseExpired'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseZF:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.name, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.name'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZG:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.name, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.name'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseZH:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.serialNumber, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.serialNumber'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZI:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.serialNumber, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.serialNumber'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZJ:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.deviceAdminState,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.deviceAdminState'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZK:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.deviceAdminState,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.deviceAdminState'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZL:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.mgmtInterfaceMacAddress,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.mgmtInterfaceMacAddress'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZM:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.mgmtInterfaceMacAddress,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.mgmtInterfaceMacAddress'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZN:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.mgmtInterfaceName,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.mgmtInterfaceName'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZO:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.mgmtInterfaceName,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.mgmtInterfaceName'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZP:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.mgmtVlanMacAddress,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.mgmtVlanMacAddress'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZQ:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.mgmtVlanMacAddress,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.mgmtVlanMacAddress'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZR:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.deviceErrorStatus,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.deviceErrorStatus'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZS:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.deviceErrorStatus,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.deviceErrorStatus'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZT:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.ipAddressNum, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.ipAddressNum'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZU:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.ipAddressNum, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.ipAddressNum'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZV:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.macAddress, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.macAddress'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZW:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.macAddress, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.macAddress'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZX:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.sysObjectId, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.sysObjectId'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZY:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.sysObjectId, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.sysObjectId'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZ:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.sysServices, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.sysServices'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZA:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.sysServices, direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.sysServices'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZB:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.softwareVersion, direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.softwareVersion'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZC:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.softwareVersion,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.softwareVersion'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZD:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.fullyQualifiedGroupName,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.fullyQualifiedGroupName'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZE:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.fullyQualifiedGroupName,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.fullyQualifiedGroupName'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZF:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.protocol,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.protocol'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZG:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.protocol,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.protocol'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZH:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.errorMessage,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.errorMessage'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZI:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.errorMessage,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.errorMessage'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+
+      testcaseZZJ:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.ipAddress,
+        direction:ASC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.ipAddress'
+           direction: 'ASC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZK:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicesbyparameter'
+        entity_title: 'Get IE Devices for limit:null, offset:null, field:supportedDevice.ipAddress,
+        direction:DESC'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+           field: 'supportedDevice.ipAddress'
+           direction: 'DESC'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Get All Supported Devices By Parameter Tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

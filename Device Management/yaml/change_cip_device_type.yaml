@@ -1,0 +1,190 @@
+testbed:
+   name: ChangeCIPDeviceTypeTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddOtherDevice:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all CIP for Change CIP deviceType Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file: 'testbed_cip_device_discovery_profile.json'
+           access_profile_file: 'testbed_access_profile_cip_discovery.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseA:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move CIP to IO'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.189'
+           device_type: 'IO'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseB:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move CIP to HMI'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.189'
+           device_type: 'HMI'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseC:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move CIP to Controller'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.189'
+           device_type: 'Controller'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseD:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move CIP to Drive'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.189'
+           device_type: 'Drive'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseE:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move CIP to EtherNet/IP Node'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.189'
+           device_type: 'EtherNet/IP Node'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseF:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move CIP to Unknown'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.189'
+           device_type: 'Unknown'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseG:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move CIP to Reserved'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.189'
+           device_type: 'Reserved'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+#      testcaseH:
+#        function: 'other_device_management'
+#        http_method: 'PUTcipdevicebyid'
+#        entity_title: 'Move CIP to Chassis'
+#        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+#        parameter:
+#           ip_address: '172.27.162.189'
+#           device_type: 'Chassis'
+#           device: 'CIP'
+#        login: 'SystemAdmin'
+#        password: 'Sgbu123!'
+#        expected: '200'
+
+      testcaseI:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move invalid CIP to IO'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.164.11'
+           device_type: 'IO'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseJ:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move CIP to invalid Device type'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.189'
+           device_type: 'test'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseK:
+        function: 'other_device_management'
+        http_method: 'PUTcipdevicebyid'
+        entity_title: 'Move CIP with invalid ID type'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: 'test'
+           device_type: 'Drive'
+           device: 'CIP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Change CIP deviceType tests'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

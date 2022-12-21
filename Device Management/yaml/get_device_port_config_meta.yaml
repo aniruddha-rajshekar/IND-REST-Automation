@@ -1,0 +1,243 @@
+testbed:
+   name: GETDevicePortConfigMetaTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddLicensedDevices:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Licensed Devices for GET Port Config Meta Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file:
+            - 'testbed_ie_device_discovery_profile_3.json'
+            - 'testbed_ie_device_discovery_profile_4.json'
+            - 'testbed_ie5000_device_discovery_profile.json'
+            - 'testbed_ie4010_device_discovery_profile.json'
+            - 'testbed_stratix_device_discovery_profile_2.json'
+            - 'testbed_stratix_device_discovery_profile_3.json'
+           access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseA:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for IE2000'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.4'
+           empty_speed_ports:
+            - 'GigabitEthernet1/1'
+            - 'GigabitEthernet1/2'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseB:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for IE3000'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.27'
+           empty_speed_ports:
+            - 'GigabitEthernet1/1'
+            - 'GigabitEthernet1/2'
+            - 'FastEthernet2/1'
+            - 'FastEthernet2/2'
+            - 'FastEthernet2/3'
+            - 'FastEthernet2/4'
+            - 'FastEthernet2/5'
+            - 'FastEthernet2/6'
+            - 'FastEthernet2/7'
+            - 'FastEthernet2/8'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseC:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for IE4000'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.29'
+           empty_speed_ports:
+            - 'GigabitEthernet1/1'
+            - 'GigabitEthernet1/2'
+            - 'GigabitEthernet1/3'
+            - 'GigabitEthernet1/4'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseD:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for IE5000'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.57'
+           empty_speed_ports:
+            - 'GigabitEthernet1/13'
+            - 'GigabitEthernet1/14'
+            - 'GigabitEthernet1/15'
+            - 'GigabitEthernet1/16'
+            - 'GigabitEthernet1/17'
+            - 'GigabitEthernet1/18'
+            - 'GigabitEthernet1/19'
+            - 'GigabitEthernet1/20'
+            - 'GigabitEthernet1/21'
+            - 'GigabitEthernet1/22'
+            - 'GigabitEthernet1/23'
+            - 'GigabitEthernet1/24'
+            - 'TenGigabitEthernet1/25'
+            - 'TenGigabitEthernet1/26'
+            - 'TenGigabitEthernet1/27'
+            - 'TenGigabitEthernet1/28'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseE:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for IE4010'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.189'
+           empty_speed_ports:
+            - 'GigabitEthernet1/13'
+            - 'GigabitEthernet1/14'
+            - 'GigabitEthernet1/15'
+            - 'GigabitEthernet1/16'
+            - 'GigabitEthernet1/17'
+            - 'GigabitEthernet1/18'
+            - 'GigabitEthernet1/19'
+            - 'GigabitEthernet1/20'
+            - 'GigabitEthernet1/21'
+            - 'GigabitEthernet1/22'
+            - 'GigabitEthernet1/23'
+            - 'GigabitEthernet1/24'
+            - 'GigabitEthernet1/25'
+            - 'GigabitEthernet1/26'
+            - 'GigabitEthernet1/27'
+            - 'GigabitEthernet1/28'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseF:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for 1783-MS'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.116'
+           empty_speed_ports:
+            - 'GigabitEthernet1/1'
+            - 'GigabitEthernet1/2'
+            - 'FastEthernet2/1'
+            - 'FastEthernet2/2'
+            - 'FastEthernet2/3'
+            - 'FastEthernet2/4'
+            - 'FastEthernet2/5'
+            - 'FastEthernet2/6'
+            - 'FastEthernet2/7'
+            - 'FastEthernet2/8'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseG:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for 1783-HMS'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.117'
+           empty_speed_ports:
+            - 'GigabitEthernet1/1'
+            - 'GigabitEthernet1/2'
+            - 'GigabitEthernet1/3'
+            - 'GigabitEthernet1/4'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseH:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for 1783-BMS'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.120'
+           empty_speed_ports:
+            - 'GigabitEthernet1/1'
+            - 'GigabitEthernet1/2'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseI:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for invalid ID type'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: 'test'
+           empty_speed_ports: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseJ:
+        function: 'device_management'
+        http_method: 'GETdeviceportconfigmetabyid'
+        entity_title: 'GET Port Config Meta for non-existent Device'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '10.2.3.55'
+           empty_speed_ports: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all GET Port Config Meta Tests'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

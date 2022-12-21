@@ -1,0 +1,353 @@
+testbed:
+   name: DeleteDevicesTestBed
+devices:
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddDevices:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Devices for Delete Device Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file:
+            - 'testbed_ie_device_discovery_profile.json'
+            - 'testbed_stratix_device_discovery_profile.json'
+            - 'testbed_other_device_discovery_profile.json'
+            - 'testbed_other_device_discovery_profile_2.json'
+            - 'testbed_other_device_discovery_profile_3.json'
+            - 'testbed_profinet_device_discovery_profile.json'
+            - 'testbed_cip_device_discovery_profile.json'
+           access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_cip_discovery.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_profinet_discovery.json'
+            - 'testbed_access_profile_cip_discovery.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      AtestcaseDeleteAccessProfile:
+        function: 'device_management'
+        http_method: 'DELETEaccessprofiles'
+        url: 'https://10.195.119.103:8443/api/v1/access-profiles'
+        entity_title: 'Delete single Access Profile with valid ID'
+        parameter:
+          access_profile_name:
+            - 'Access Profile Non-Secure 1'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'False'
+
+#      AtestcaseDeletePrivilegeZeroDevice:
+#        function: 'device_management'
+#        http_method: 'DELETEdevices'
+#        url: 'https://10.195.119.103:8443/api/v1/devices'
+#        entity_title: 'Delete single valid IE Device with Privilege mode 0'
+#        parameter:
+#          delete_from_state: 'Unlicensed'
+#          privilege_test: 'True'
+#          discovery_profile_file: 'testbed_ie_privilege_discovery.json'
+#          access_profile_file: 'testbed_access_profile_non_secure_mode.json'
+#          ip_address: '10.195.119.216'
+#        login: 'SystemAdmin'
+#        password: 'Sgbu123!'
+#        expected: 'Success'
+
+      testcaseA:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single valid IE Device in Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          delete_from_state: 'Unlicensed'
+          ip_address: '100.100.100.14'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseB:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single invalid IE Device in Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Unlicensed'
+           ip_address:
+              - '10.22.64.44'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseC:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete multiple valid IE Devices in Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Unlicensed'
+           ip_address:
+                - '100.100.100.19'
+                - '100.100.100.17'
+                - '100.100.100.6'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+                - 'Success'
+                - 'Success'
+                - 'Success'
+
+      testcaseD:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete multiple invalid IE Devices in Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Unlicensed'
+           ip_address:
+                - '10.22.64.50'
+                - '10.22.64.49'
+                - '10.22.64.45'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+                - 'Error'
+                - 'Error'
+                - 'Error'
+
+      testcaseE:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete multiple valid and invalid IE Devices in Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Unlicensed'
+           ip_address:
+                - '100.100.100.4'
+                - '10.22.64.47'
+                - '10.22.64.48'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+                - 'Success'
+                - 'Error'
+                - 'Error'
+
+      testcaseF:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single valid IE Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Licensed'
+           ip_address: '100.100.100.12'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseG:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single valid Stratix Devices in Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Unlicensed'
+           ip_address:
+                - '100.100.100.112'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+                - 'Success'
+
+      testcaseH:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single valid Stratix Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Licensed'
+           ip_address: '100.100.100.111'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseI:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete multiple valid Stratix Devices in Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Unlicensed'
+           ip_address:
+                - '100.100.100.113'
+                - '100.100.100.117'
+                - '100.100.100.105'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+                - 'Success'
+                - 'Success'
+                - 'Success'
+
+      testcaseJ:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete multiple valid and invalid Stratix Devices in Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Unlicensed'
+           ip_address:
+                - '100.100.100.106'
+                - '10.22.64.47'
+                - '10.22.64.48'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+                - 'Success'
+                - 'Error'
+                - 'Error'
+
+      testcaseK:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete Device with invalid ID type'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           delete_from_state: 'Licensed'
+           ip_address: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+
+      testcaseL:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single valid CIP Device'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          delete_from_state: 'null'
+          ip_address: '172.27.162.189'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseM:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete multiple valid CIP Devices'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          delete_from_state: 'null'
+          ip_address:
+            - '172.27.162.200'
+            - '172.27.162.199'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+                - 'Success'
+                - 'Success'
+
+      testcaseN:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single invalid Other Device'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          delete_from_state: 'null'
+          ip_address: '10.22.64.141'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+
+      testcaseO:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete multiple invalid Other Devices'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          delete_from_state: 'null'
+          ip_address:
+            - '10.22.64.142'
+            - '10.22.64.143'
+            - '10.22.64.144'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+                - 'Error'
+                - 'Error'
+                - 'Error'
+
+      testcaseP:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single valid SNMP Device'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          delete_from_state: 'null'
+          ip_address: '100.100.100.94'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseQ:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single valid PROFINET Device'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          delete_from_state: 'null'
+          ip_address: '172.27.162.149'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseR:
+        function: 'device_management'
+        http_method: 'DELETEdevices'
+        entity_title: 'Delete single valid Access Point Device'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          delete_from_state: 'null'
+          ip_address: '172.27.162.206'
+          verify_details: 'True'
+          details:
+            - 'deviceType:Access Point'
+            - 'protocolStr:SNMP'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Delete Device tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

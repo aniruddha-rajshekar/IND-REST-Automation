@@ -1,0 +1,214 @@
+testbed:
+   name: OnDemandRefreshTestBed
+devices:
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddDevices:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Devices for On Demand Refresh Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_ie_device_discovery_profile.json'
+            - 'testbed_stratix_device_discovery_profile.json'
+            - 'testbed_ie2000u_device_discovery_profile.json'
+            - 'testbed_ie5000_device_discovery_profile.json'
+          access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseA:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid IE Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.27'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseB:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid IE Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.29'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseC:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid IE Device as consecutive On Demand Refresh'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.31'
+          device_state: 'Licensed'
+          active_operation: 'OnDemandRefresh'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseD:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for invalid IE Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.22.63.107'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+
+      testcaseE:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid IE Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.13'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseF:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid IE Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.57'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseG:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid IE Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.74'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseH:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid Stratix Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.116'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseI:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid Stratix Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.110'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+
+      testcaseJ:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid Stratix Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.111'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseK:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for valid Stratix Device in Licensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '100.100.100.117'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseL:
+        function: 'device_management'
+        http_method: 'POSTdevicerefresh'
+        entity_title: 'Perform On Demand Refresh for Device with invalid ID type'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: 'test'
+          device_state: 'Licensed'
+          active_operation: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+
+      testcaseZZZZZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all On Demand Refresh tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

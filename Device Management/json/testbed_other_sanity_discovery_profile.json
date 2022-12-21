@@ -1,0 +1,9 @@
+{
+  "endIp": "172.27.162.200",
+  "groupId": 1,
+  "hopCountLimit": 0,
+  "isLinkLayerDiscovery": "false",
+  "name": "Other Devices Sanity TestBed",
+  "discoverRelatedDevices": false,
+  "startIp": "172.27.162.199"
+}

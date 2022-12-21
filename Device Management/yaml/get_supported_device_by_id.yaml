@@ -1,0 +1,96 @@
+testbed:
+   name: GetSupportedDeviceByIDTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddSupportedDevices:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Supported Devices for Get Supported Device by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file:
+            - 'testbed_ie_device_discovery_profile.json'
+            - 'testbed_stratix_device_discovery_profile.json'
+           access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+      
+      testcaseA:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicebyid'
+        entity_title: 'Get single valid IE Device'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.30'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseB:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicebyid'
+        entity_title: 'Get single invalid IE Device'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '10.22.61.111'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseC:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicebyid'
+        entity_title: 'Get single valid Stratix Device'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: '100.100.100.115'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseD:
+        function: 'supported_device_management'
+        http_method: 'GETsupporteddevicebyid'
+        entity_title: 'Get Supported Device for invalid ID type'
+        url: 'https://10.195.119.103:8443/api/v1/supported-devices'
+        parameter:
+           ip_address: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+
+      testcaseZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Get Supported Device by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

@@ -1,0 +1,9 @@
+{
+  "endIp": "172.27.162.206",
+  "groupId": 1,
+  "hopCountLimit": 0,
+  "isLinkLayerDiscovery": "false",
+  "name": "Other Device TestBed 3",
+  "discoverRelatedDevices": false,
+  "startIp": "172.27.162.206"
+}

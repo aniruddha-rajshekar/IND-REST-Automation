@@ -1,0 +1,351 @@
+testbed:
+   name: DevicesStateTransitionSecureTestbed
+devices:
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddDevices:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Devices for Devices State Transition Secure Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_ie_device_discovery_profile.json'
+            - 'testbed_ie2000u_device_discovery_profile.json'
+            - 'testbed_ie5000_device_discovery_profile.json'
+            - 'testbed_ie_privilege_discovery.json'
+            - 'testbed_ie1k_device_discovery_profile.json'
+          access_profile_file:
+            - 'testbed_access_profile_secure_mode.json'
+            - 'testbed_access_profile_secure_mode.json'
+            - 'testbed_access_profile_secure_mode.json'
+            - 'testbed_access_profile_secure_mode.json'
+            - 'testbed_access_profile_secure_mode_ie1k.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseA:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move single valid IE Device from Unlicensed to Unlicensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state: 'Unlicensed'
+           new_state: 'Unlicensed'
+           ip_address: '100.100.100.6'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseB:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move single valid IE Device from Unlicensed to Licensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state: 'Unlicensed'
+           new_state: 'Licensed'
+           ip_address: '100.100.100.6'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseC:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move single valid IE Device from Licensed to Licensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state: 'Licensed'
+           new_state: 'Licensed'
+           ip_address: '100.100.100.6'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseD:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move single valid IE Device from Licensed to Unlicensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state: 'Licensed'
+           new_state: 'Unlicensed'
+           ip_address: '100.100.100.6'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseE:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Transition multiple valid IE Devices to Licensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state:
+              - 'Unlicensed'
+              - 'Licensed'
+              - 'Unlicensed'
+           new_state: 'Licensed'
+           ip_address:
+              - '100.100.100.4'
+              - '100.100.100.29'
+              - '100.100.100.57'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+              - 'Success'
+              - 'Success'
+              - 'Success'
+
+      testcaseF:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move multiple valid IE Device from Unlicensed to Unlicensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state:
+            - 'Unlicensed'
+            - 'Unlicensed'
+            - 'Unlicensed'
+           new_state: 'Unlicensed'
+           ip_address:
+              - '100.100.100.22'
+              - '100.100.100.27'
+              - '100.100.100.74'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+              - 'Success'
+              - 'Success'
+              - 'Success'
+
+      testcaseG:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move multiple valid IE Device from Unlicensed to Licensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state:
+            - 'Unlicensed'
+            - 'Unlicensed'
+            - 'Unlicensed'
+           new_state: 'Licensed'
+           ip_address:
+              - '100.100.100.22'
+              - '100.100.100.27'
+              - '100.100.100.74'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+              - 'Success'
+              - 'Success'
+              - 'Success'
+
+      testcaseH:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move multiple valid IE Devices from Unlicensed and Licensed to Licensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state:
+              - 'Unlicensed'
+              - 'Unlicensed'
+              - 'Licensed'
+           new_state: 'Licensed'
+           ip_address:
+              - '100.100.100.29'
+              - '100.100.100.17'
+              - '100.100.100.74'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+              - 'Success'
+              - 'Success'
+              - 'Success'
+
+      testcaseI:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move multiple valid IE Devices from Licensed to Unlicensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state:
+              - 'Licensed'
+              - 'Licensed'
+              - 'Licensed'
+           new_state: 'Unlicensed'
+
+           ip_address:
+              - '100.100.100.29'
+              - '100.100.100.17'
+              - '100.100.100.74'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+              - 'Success'
+              - 'Success'
+              - 'Success'
+
+#      testcaseJ:
+#        function: 'device_management'
+#        http_method: 'POSTdevicesstatechange'
+#        entity_title: 'Move single valid IE Device from Unlicensed to Licensed state in Secure mode after deleting ODM'
+#        url: 'https://10.195.119.103:8443/api/v1/devices'
+#        parameter:
+#          delete_nms: 'True'
+#          access_profile_file: 'testbed_access_profile_secure_mode.json'
+#          old_state: 'Unlicensed'
+#          new_state: 'Licensed'
+#          ip_address: '10.195.119.216'
+#        login: 'SystemAdmin'
+#        password: 'Sgbu123!'
+#        expected: 'Success'
+
+      testcaseK:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move single valid IE1k Device from Unlicensed to Licensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          old_state: 'Unlicensed'
+          new_state: 'Licensed'
+          ip_address: '10.195.119.11'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseL:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move single valid IE1k Device from Licensed to Unlicensed state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          old_state: 'Licensed'
+          new_state: 'Unlicensed'
+          ip_address: '10.195.119.11'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+
+      testcaseM:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Devices for Secure State Transition Fail Test'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file: 'testbed_ie_device_discovery_profile_fail.json'
+           access_profile_file: 'testbed_access_profile_secure_mode_fail.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseN:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move multiple valid IE Devices from Unlicensed to Licensed Fail'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state:
+              - 'Unlicensed'
+              - 'Unlicensed'
+           new_state: 'Licensed'
+           ip_address:
+              - '100.100.100.29'
+              - '100.100.100.4'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+              - 'Error'
+              - 'Error'
+
+      testcaseO:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Devices for Secure State Transition Fail Test 2'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file: 'testbed_ie_device_discovery_profile_fail.json'
+           access_profile_file: 'testbed_access_profile_secure_mode_fail_2.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseP:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move multiple valid IE Devices from Unlicensed to Licensed Fail 2'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state:
+              - 'Unlicensed'
+              - 'Unlicensed'
+           new_state: 'Licensed'
+
+           ip_address:
+              - '100.100.100.29'
+              - '100.100.100.4'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected:
+              - 'Error'
+              - 'Error'
+
+      testcaseQ:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move single valid IE Device from Unlicensed to "License" state in Secure mode'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state: 'Unlicensed'
+           new_state: 'License'
+           ip_address: '100.100.100.13'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseR:
+        function: 'device_management'
+        http_method: 'POSTdevicesstatechange'
+        entity_title: 'Move Device from Unlicensed to Licensed state with invalid ID type'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+           old_state: 'Unlicensed'
+           new_state: 'License'
+           ip_address: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Secure State Transition tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

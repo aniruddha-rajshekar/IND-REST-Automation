@@ -1,0 +1,59 @@
+testbed:
+   name: GetSNMPDeviceTypesTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+      
+      testcaseA:
+        function: 'other_device_management'
+        http_method: 'GETsnmpdevicetypes'
+        entity_title: 'Get SNMP Device Types'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+          device: 'SNMP'
+          device_types:
+            - 'Switch'
+            - 'Router'
+            - 'Security Appliance'
+            - 'Server'
+            - 'Access Point'
+            - 'Camera'
+            - 'Phone'
+            - 'Wireless LAN Controller'
+            - 'Printer'
+            - 'Endpoint'
+            - 'Hypervisor'
+            - 'Unknown'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Get SNMP Device Types Tests'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

@@ -1,0 +1,105 @@
+testbed:
+   name: GetAlarmsSummaryAffectedDevicesByGroupTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddOtherDevice:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all devices for GET Alarms Summary-Affected Devices By Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file:
+            - 'testbed_stratix_device_discovery_profile_3.json'
+            - 'testbed_other_device_discovery_profile_4.json'
+           access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_cip_discovery.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseA:
+        function: 'inventory_dashboard_management'
+        http_method: 'GETalarmssummaryaffecteddevicesbygroup'
+        entity_title: 'Get Alarms Summary-Affected Devices By Group for single deviceTypes[]'
+        url: 'https://10.195.119.103:8443/api/v1/alarms-summary'
+        parameter:
+          group_id: 1
+          ip_address: '100.100.100.120'
+          device_type: 'Switch'
+          alarms: 'cpuRising'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseB:
+        function: 'inventory_dashboard_management'
+        http_method: 'GETalarmssummaryaffecteddevicesbygroup'
+        entity_title: 'Get Alarms Summary-Affected Devices By Group for single deviceTypes[]'
+        url: 'https://10.195.119.103:8443/api/v1/alarms-summary'
+        parameter:
+          group_id: 1
+          ip_address:
+            - '100.100.100.120'
+            - '172.27.162.134'
+          device_type:
+            - 'Switch'
+            - 'EtherNet/IP Node'
+          alarms:
+            - 'cpuRising'
+            - 'ptpGmOffSetThresholdExceeded'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseC:
+        function: 'inventory_dashboard_management'
+        http_method: 'GETalarmssummaryaffecteddevicesbygroup'
+        entity_title: 'Get Alarms Summary-Affected Devices By Group for invalid deviceTypes[]'
+        url: 'https://10.195.119.103:8443/api/v1/alarms-summary'
+        parameter:
+          group_id: 1
+          ip_address:
+            - '100.100.100.120'
+            - '172.27.162.134'
+          device_type:
+            - 'Switch'
+            - 'test'
+          alarms:
+            - 'cpuRising'
+            - 'ptpGmOffSetThresholdExceeded'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all GET Alarms Summary-Affected Devices By Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

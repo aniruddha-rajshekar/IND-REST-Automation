@@ -1,0 +1,68 @@
+{
+  "name": "Access Profile NetBIOS 1",
+  "description": "Access Profile NetBIOS 1",
+  "accessProfileSettings": [
+    "NetBIOS"
+  ],
+  "deviceAccessSettings": {
+    "username": "admin",
+    "password": "cisco123",
+    "enablePassword": "cisco123",
+    "advancedDeviceAccessSettings": {
+      "secureMode": false,
+      "httpSettings": {
+        "portNumber": 80
+      },
+      "httpsSettings": {
+        "portNumber": 443
+      },
+      "sshSettings": {
+        "connectTimeoutInSecs": 25,
+        "portNumber": 22,
+        "readTimeoutInSecs": 25,
+        "retries": 3,
+        "certificateKeyLength": "CERT_1024"
+      },
+      "telnetSettings": {
+        "connectTimeoutInSecs": 25,
+        "portNumber": 23,
+        "readTimeoutInSecs": 25,
+        "retries": 3
+      }
+    }
+  },
+  "commonSnmpSettings": {
+    "timeoutInSecs": 25,
+    "retries": 1,
+    "portNumber": 161,
+    "snmpSettings": [
+      {
+        "snmpV2Settings": [
+          {
+            "readPassword": "public",
+            "writePassword": "private"
+          }
+        ]
+      },
+      {
+        "snmpV1Settings": [
+          {
+            "readPassword": "public"
+          }
+        ]
+      }
+    ]
+  },
+  "bacnetDeviceSettings": {
+    "retries": 1,
+    "timeoutInSecs": 5
+  },
+  "modbusDeviceSettings": {
+    "retries": 1,
+    "timeoutInSecs": 5
+  },
+  "profinetDeviceSettings": {
+    "retries": 1,
+    "timeoutInSecs": 5
+  }
+}

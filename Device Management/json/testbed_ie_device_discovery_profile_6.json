@@ -1,0 +1,9 @@
+{
+  "endIp": "172.27.162.162",
+  "groupId": 1,
+  "hopCountLimit": 0,
+  "isLinkLayerDiscovery": "false",
+  "name": "IE Devices TestBed 6",
+  "discoverRelatedDevices": false,
+  "startIp": "172.27.162.162"
+}

@@ -1,0 +1,216 @@
+testbed:
+   name: ChangeModbusDeviceTypeTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseAddOtherDevice:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add all Modbus for Change Modbus deviceType Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+           discovery_profile_file: 'testbed_modbus_device_discovery_profile.json'
+           access_profile_file: 'testbed_access_profile_modbus_discovery.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseA:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to Drive'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'Drive'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseB:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to Controller'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'Controller'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseC:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to HMI'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'HMI'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseD:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to IO'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'IO'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseE:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to Sensor'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'Sensor'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseF:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to Modem'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'Modem'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseG:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to Network Gateway'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'Network Gateway'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseH:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to Network Host Adapter'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'Network Host Adapter'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseI:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to RTU'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'RTU'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseJ:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to SCADA'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'SCADA'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseK:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move invalid Modbus to SCADA'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.164.11'
+           device_type: 'SCADA'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseL:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus to invalid Device type'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: '172.27.162.208'
+           device_type: 'test'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseM:
+        function: 'other_device_management'
+        http_method: 'PUTmodbusdevicebyid'
+        entity_title: 'Move Modbus with invalid ID type'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter:
+           ip_address: 'test'
+           device_type: 'RTU'
+           device: 'Modbus'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Change Modbus deviceType tests'
+        url: 'https://10.195.119.103:8443/api/v1/other-devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

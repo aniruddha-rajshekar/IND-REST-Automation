@@ -1,0 +1,9 @@
+{
+  "endIp": "10.1.8.209",
+  "groupId": 1,
+  "hopCountLimit": 0,
+  "isLinkLayerDiscovery": "false",
+  "name": "Test Maximum IP Range Discovery Profile",
+  "discoverRelatedDevices": false,
+  "startIp": "10.1.1.1"
+}

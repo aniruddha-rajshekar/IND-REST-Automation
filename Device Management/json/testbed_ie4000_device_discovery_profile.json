@@ -1,0 +1,9 @@
+{
+  "endIp": "100.100.100.17",
+  "groupId": 1,
+  "hopCountLimit": 0,
+  "isLinkLayerDiscovery": "false",
+  "name": "IE 4000 Device TestBed",
+  "discoverRelatedDevices": false,
+  "startIp": "100.100.100.17"
+}

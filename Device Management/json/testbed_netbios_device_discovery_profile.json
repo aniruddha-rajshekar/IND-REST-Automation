@@ -1,0 +1,9 @@
+{
+  "endIp": "172.27.162.179",
+  "groupId": 1,
+  "hopCountLimit": 0,
+  "isLinkLayerDiscovery": "false",
+  "name": "NetBIOS Device TestBed",
+  "discoverRelatedDevices": false,
+  "startIp": "172.27.162.179"
+}
