@@ -1,0 +1,31 @@
+{
+  "instanceId": 1,
+  "slot": "None",
+  "ipAddress": "10.195.119.170",
+  "role": "ACTIVE_SUPERVISOR",
+  "status": "NORMAL",
+  "activeSupPrecedence": 200,
+  "gatewayStatus": "GW_FAULT_DUE_TO_UPLINK_PORT_DOWN",
+  "port1": "Gi1/5",
+  "port2": "Gi1/6",
+  "dlrMembersIP": [
+    "172.27.162.188",
+    "172.27.162.191"
+  ],
+  "dlrMembersMAC": [
+    "f4:54:33:17:a8:05",
+    "f4:54:33:c8:95:05"
+  ],
+  "dlrSupConfigParams": [
+    {
+      "supEnabled": "True",
+      "precedence": 200
+    }
+  ],
+  "dlrGatewayParams": [
+    {
+      "gatewayEnabled": "True",
+      "precedence": 0
+    }
+  ]
+}

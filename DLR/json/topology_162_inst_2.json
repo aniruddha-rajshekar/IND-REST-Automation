@@ -1,0 +1,44 @@
+{
+  "instanceId": 2,
+  "status": "RING_FAULT",
+  "nodes": [
+    {
+      "ipAddress" : "10.195.119.162",
+      "slot": "None",
+      "role": "ACTIVE_SUPERVISOR",
+      "status": "RING_FAULT",
+      "gatewayStatus": "GATEWAY_NOT_ENABLED"
+    },
+    {
+      "ipAddress" : "10.195.119.161",
+      "slot": "None",
+      "role": "BACKUP_SUPERVISOR",
+      "status": "RING_FAULT",
+      "gatewayStatus": "GATEWAY_NOT_ENABLED"
+    },
+    {
+      "ipAddress" : "10.195.119.163",
+      "slot": "None",
+      "role": "RING_NODE",
+      "status": "RING_FAULT",
+      "gatewayStatus": "GATEWAY_NOT_ENABLED"
+    }
+  ],
+  "links": [
+    {
+      "source": "10.195.119.162",
+      "target": "10.195.119.161",
+      "status": "LINK_UP"
+    },
+    {
+      "source": "10.195.119.162",
+      "target": "10.195.119.163",
+      "status": "LINK_DOWN"
+    },
+    {
+      "source": "10.195.119.163",
+      "target": "10.195.119.164",
+      "status": "LINK_UP"
+    }
+  ]
+}

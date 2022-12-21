@@ -1,0 +1,359 @@
+testbed:
+   name: GETDLRTopologyBygGroupTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      testcaseA:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for invalid group ID type'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          clear_all: 'True'
+          group_id_or_name: 'test'
+          ip_address: 'None'
+          instance_id: 'None'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseB:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for non-existent group'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '12'
+          ip_address: 'None'
+          instance_id: 'None'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseC:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for invalid device ID type'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          clear_all: 'True'
+          group_id_or_name: '1'
+          ip_address: 'test'
+          instance_id: 'None'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseD:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for non-existent device'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '12'
+          instance_id: 'None'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseE:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Get DLR Topology by Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_dlr_device_discovery_profile.json'
+            - 'testbed_dlr_device_discovery_profile_5.json'
+          access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseF:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for invalid instance ID type'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.161'
+          instance_id: 'test'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseG:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for non-existent instance'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.161'
+          instance_id: '4'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseH:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 10.195.119.161 with Instance ID: 1'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.161'
+          licensed: 'True'
+          instance_id: '1'
+          topology: 'True'
+          license_ring_devices: '10.195.119.162:10.195.119.163:10.195.119.164:10.195.119.167'
+          topology_template: 'topology_161_inst_1.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseI:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 10.195.119.161 with Instance ID: 3'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.161'
+          licensed: 'False'
+          instance_id: '3'
+          topology: 'False'
+          topology_template: 'topology_161_inst_3.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseJ:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 10.195.119.161 with Instance ID: 2'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.161'
+          licensed: 'False'
+          instance_id: '2'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseK:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 10.195.119.162 with Instance ID: 2'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.162'
+          licensed: 'False'
+          instance_id: '2'
+          topology: 'False'
+          topology_template: 'topology_162_inst_2.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseL:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 10.195.119.162 with Instance ID: 1'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.162'
+          licensed: 'False'
+          instance_id: '1'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseM:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 10.195.119.161 with Instance ID: 1'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_test: 'True'
+          group_id_or_name: '1'
+          ip_address: '10.195.119.161'
+          licensed: 'False'
+          instance_id: '1'
+          topology: 'False'
+          subgroup: 'grp1'
+          move_to_subgroup: '10.195.119.161'
+          move_all_to_group: '10.195.119.162:10.195.119.163:10.195.119.164:10.195.119.167'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseN:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Get DLR Topology by Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_dlr_device_discovery_profile_4.json'
+            - 'testbed_dlr_device_discovery_profile_6.json'
+          access_profile_file:
+            - 'testbed_access_profile_cip_discovery.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseO:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 10.195.119.166 with Instance ID: 1'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.166'
+          licensed: 'True'
+          instance_id: '1'
+          topology: 'True'
+          license_ring_devices: '10.195.119.140:10.195.119.142'
+          topology_template: 'topology_166_inst_1.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseP:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 10.195.119.166 with Instance ID: 2'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.166'
+          licensed: 'False'
+          instance_id: '2'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseQ:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Get DLR Topology by Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_dlr_device_discovery_profile_3.json'
+          access_profile_file:
+            - 'testbed_access_profile_cip_discovery.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseR:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Move 1st level CIP backplane device 10.195.119.172 to Licensed'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.172'
+          licensed: 'True'
+          instance_id: 'None'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseS:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 192.10.10.22 with Instance ID: 1 and no Slot value'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '192.10.10.22'
+          licensed: 'True'
+          instance_id: '1'
+          topology: 'True'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseT:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 192.10.10.22 with Instance ID: 1 Slot:2'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '192.10.10.22'
+          licensed: 'False'
+          instance_id: '1'
+          topology: 'False'
+          slot_value: '2'
+          topology_template: 'topology_22_inst_1_slot_2.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseU:
+        function: 'dlr'
+        http_method: 'GETdlrtopologybygroup'
+        entity_title: 'Get DLR Topology for Supervisor 192.10.10.22 with Instance ID: 1 Slot:3'
+        url: 'https://10.195.119.103:8443/api/v1/dlr'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '192.10.10.22'
+          licensed: 'False'
+          instance_id: '1'
+          topology: 'False'
+          slot_value: '3'
+          topology_template: 'topology_22_inst_1_slot_3.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Get DLR Topology by Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period
