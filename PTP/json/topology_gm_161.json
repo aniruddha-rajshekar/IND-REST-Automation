@@ -1,0 +1,36 @@
+[
+  {
+    "ipAddress": "10.195.119.161",
+    "slot": "None",
+    "childNodes": [
+      "10.195.119.162",
+      "10.195.119.163",
+      "10.195.119.167"
+    ],
+    "role": "GRAND_MASTER"
+  },
+  {
+    "ipAddress": "10.195.119.162",
+    "slot": "None",
+    "childNodes": [],
+    "role": "BOUNDARY_CLOCK"
+  },
+  {
+    "ipAddress": "10.195.119.164",
+    "slot": "None",
+    "childNodes": [],
+    "role": "TRANSPARENT_CLOCK"
+  },
+  {
+    "ipAddress": "10.195.119.163",
+    "slot": "None",
+    "childNodes": [],
+    "role": "BOUNDARY_CLOCK"
+  },
+  {
+    "ipAddress": "10.195.119.167",
+    "slot": "None",
+    "childNodes": [],
+    "role": "BOUNDARY_CLOCK"
+  }
+]

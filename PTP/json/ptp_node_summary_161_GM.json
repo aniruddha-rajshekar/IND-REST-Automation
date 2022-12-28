@@ -1,0 +1,67 @@
+{
+  "id": "10.195.119.161",
+  "slot": "None",
+  "role": "GRAND_MASTER",
+  "stepsRemoved": 0,
+  "ptpMasterLink": {
+    "deviceId": "10.195.119.161",
+    "deviceName": "AB5400-DLR2-SUP-161",
+    "deviceType": "Switch",
+    "protocol": "MULTIPROTOCOL",
+    "portName": "None"
+  },
+  "portStates": [
+    {
+      "portNumber": 1,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/1"
+    },
+    {
+      "portNumber": 3,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/3"
+    },
+    {
+      "portNumber": 5,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/5"
+    },
+    {
+      "portNumber": 6,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/6"
+    },
+    {
+      "portNumber": 7,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/7"
+    },
+    {
+      "portNumber": 8,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/8"
+    },
+    {
+      "portNumber": 9,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/9"
+    },
+    {
+      "portNumber": 10,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/10"
+    },
+    {
+      "portNumber": 17,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/17"
+    }
+  ],
+  "ptpGrandMasterLink": {
+    "deviceId": "10.195.119.161",
+    "deviceName": "AB5400-DLR2-SUP-161",
+    "deviceType": "Switch",
+    "protocol": "MULTIPROTOCOL",
+    "portName": "None"
+  }
+}

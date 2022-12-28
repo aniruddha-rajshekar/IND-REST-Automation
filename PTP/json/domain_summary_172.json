@@ -1,0 +1,65 @@
+{
+  "ptpDomainNumber": 0,
+  "ptpDomainDevicesVo": [
+    {
+      "ptpDeviceLink": {
+        "deviceId": "10.195.119.172",
+        "deviceName": "Backplane 1756-A7",
+        "deviceType": "Controller",
+        "protocol": "CIP",
+        "portName": "SLOT-2",
+        "deviceCategoryStr": "Other"
+      },
+      "role": "GRAND_MASTER",
+      "bmcaRank": 1,
+      "productId": "1756-L85E/B",
+      "priority1": 1,
+      "priority2": 128
+    },
+    {
+      "ptpDeviceLink": {
+        "deviceId": "10.195.119.172",
+        "deviceName": "Backplane 1756-A7",
+        "deviceType": "Controller",
+        "protocol": "CIP",
+        "portName": "SLOT-3",
+        "deviceCategoryStr": "Other"
+      },
+      "role": "BOUNDARY_CLOCK",
+      "bmcaRank": 2,
+      "productId": "1756-EN2TR/C 217021900",
+      "priority1": 128,
+      "priority2": 128
+    },
+    {
+      "ptpDeviceLink": {
+        "deviceId": "10.195.119.142",
+        "deviceName": "AB5400_DLR_NODE_142",
+        "deviceType": "Switch",
+        "protocol": "MULTIPROTOCOL",
+        "portName": "None",
+        "deviceCategoryStr": "Supported"
+      },
+      "role": "BOUNDARY_CLOCK",
+      "bmcaRank": 3,
+      "productId": "1783-HMS16TG4CGR",
+      "priority1": 128,
+      "priority2": 128
+    },
+    {
+      "ptpDeviceLink": {
+        "deviceId": "10.195.119.140",
+        "deviceName": "AB5400_DLR_SUP_140",
+        "deviceType": "Switch",
+        "protocol": "MULTIPROTOCOL",
+        "portName": "None",
+        "deviceCategoryStr": "Supported"
+      },
+      "role": "BOUNDARY_CLOCK",
+      "bmcaRank": 4,
+      "productId": "1783-HMS8TG8EG4CGN",
+      "priority1": 128,
+      "priority2": 128
+    }
+  ]
+}

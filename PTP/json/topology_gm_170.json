@@ -1,0 +1,16 @@
+[
+  {
+    "ipAddress": "10.195.119.170",
+    "slot": "None",
+    "childNodes": [
+      "10.195.119.171"
+    ],
+    "role": "GRAND_MASTER"
+  },
+  {
+    "ipAddress": "10.195.119.171",
+    "slot": "None",
+    "childNodes": [],
+    "role": "BOUNDARY_CLOCK"
+  }
+]

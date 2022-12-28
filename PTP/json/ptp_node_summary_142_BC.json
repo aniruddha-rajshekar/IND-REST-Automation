@@ -1,0 +1,32 @@
+{
+  "id": "10.195.119.142",
+  "slot": "None",
+  "role": "BOUNDARY_CLOCK",
+  "stepsRemoved": 2,
+  "ptpMasterLink": {
+    "deviceId": "10.195.119.140",
+    "deviceName": "AB5400_DLR_SUP_140",
+    "deviceType": "Switch",
+    "protocol": "MULTIPROTOCOL",
+    "portName": "None"
+  },
+  "portStates": [
+    {
+      "portNumber": 5,
+      "portState": "MASTER",
+      "portName": "GigabitEthernet1/5"
+    },
+    {
+      "portNumber": 6,
+      "portState": "SLAVE",
+      "portName": "GigabitEthernet1/6"
+    }
+  ],
+  "ptpGrandMasterLink": {
+    "deviceId": "10.195.119.172",
+    "deviceName": "Backplane 1756-A7",
+    "deviceType": "Controller",
+    "protocol": "CIP",
+    "portName": "SLOT-2"
+  }
+}

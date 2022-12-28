@@ -1,0 +1,47 @@
+{
+  "id": "10.195.119.164",
+  "slot": "None",
+  "role": "TRANSPARENT_CLOCK",
+  "stepsRemoved": 0,
+  "ptpMasterLink": {
+    "deviceId": "10.195.119.162",
+    "deviceName": "AB5400-DLR2-BSUP-162",
+    "deviceType": "Switch",
+    "protocol": "MULTIPROTOCOL",
+    "portName": "None"
+  },
+  "portStates": [
+    {
+      "portNumber": 2,
+      "portState": "SLAVE",
+      "portName": "GigabitEthernet1/2"
+    },
+    {
+      "portNumber": 3,
+      "portState": "LISTENING",
+      "portName": "GigabitEthernet1/3"
+    },
+    {
+      "portNumber": 5,
+      "portState": "LISTENING",
+      "portName": "FastEthernet1/5"
+    },
+    {
+      "portNumber": 9,
+      "portState": "LISTENING",
+      "portName": "FastEthernet1/9"
+    },
+    {
+      "portNumber": 10,
+      "portState": "LISTENING",
+      "portName": "FastEthernet1/10"
+    }
+  ],
+  "ptpGrandMasterLink": {
+    "deviceId": "10.195.119.161",
+    "deviceName": "AB5400-DLR2-SUP-161",
+    "deviceType": "Switch",
+    "protocol": "MULTIPROTOCOL",
+    "portName": "None"
+  }
+}

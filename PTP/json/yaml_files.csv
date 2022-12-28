@@ -1,0 +1,5 @@
+scriptfiles,yamfiles
+ind_automation_ptp.py,get_ptp_domain_summary_by_id.yaml
+ind_automation_ptp.py,get_ptp_node_summary_by_id.yaml
+ind_automation_ptp.py,get_ptp_topology_by_group.yaml
+ind_automation_ptp.py,put_ptp_gm_offset_threshold_by_id.yaml

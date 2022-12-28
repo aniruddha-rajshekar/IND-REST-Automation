@@ -1,0 +1,239 @@
+testbed:
+  name: GETPTPTopologyBygGroupTestbed
+devices:
+  S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      testcaseA:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for invalid group ID type'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          clear_all: 'True'
+          group_id_or_name: 'test'
+          ip_address: 'None'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseB:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for non-existent group'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          group_id_or_name: '12'
+          ip_address: 'None'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseC:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for invalid device ID type'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          clear_all: 'True'
+          group_id_or_name: '1'
+          ip_address: 'test'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseD:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for non-existent device'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '12'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseE:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Get PTP Topology by Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_ptp_device_discovery_profile.json'
+            - 'testbed_ptp_device_discovery_profile_5.json'
+          access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseF:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for invalid slot value type'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.161'
+          slot_value: 'test'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseG:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for non-existent slot value'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.161'
+          slot_value: '2'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseH:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for GM 10.195.119.161'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.161'
+          licensed: 'True'
+          topology: 'True'
+          license_child_nodes: '10.195.119.162:10.195.119.163:10.195.119.164:10.195.119.167'
+          topology_template: 'topology_gm_161.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseI:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Get PTP Topology by Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_ptp_device_discovery_profile_2.json'
+          access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseJ:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for GM 10.195.119.170'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.170'
+          licensed: 'True'
+          topology: 'True'
+          license_child_nodes: '10.195.119.171'
+          topology_template: 'topology_gm_170.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseK:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Get PTP Topology by Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_ptp_device_discovery_profile_3.json'
+            - 'testbed_ptp_device_discovery_profile_4.json'
+            - 'testbed_ptp_device_discovery_profile_6.json'
+          access_profile_file:
+            - 'testbed_access_profile_cip_discovery.json'
+            - 'testbed_access_profile_cip_discovery.json'
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseL:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for GM 10.195.119.172 and Slot:2'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.172'
+          licensed: 'True'
+          topology: 'True'
+          slot_value: '2'
+          license_child_nodes: '10.195.119.140:10.195.119.142:10.195.119.165'
+          topology_template: 'topology_gm_172.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseM:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for no slot value type for CIP device'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.172'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseN:
+        function: 'ptp'
+        http_method: 'GETptptopologybygroup'
+        entity_title: 'Get PTP Topology for slot value that is not GM'
+        url: 'https://10.195.119.103:8443/api/v1/ptp'
+        parameter:
+          group_id_or_name: '1'
+          ip_address: '10.195.119.172'
+          slot_value: '3'
+          topology: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseZZZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Get PTP Topology by Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+        vrf context management
+      post_clean: |
+        license grace-period

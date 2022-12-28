@@ -1,0 +1,39 @@
+[
+  {
+    "ipAddress": "10.195.119.172",
+    "slot": 2,
+    "childNodes": [
+      "10.195.119.140",
+      "10.195.119.172"
+    ],
+    "role": "GRAND_MASTER"
+  },
+  {
+    "ipAddress": "10.195.119.172",
+    "slot": 3,
+    "childNodes": [],
+    "role": "BOUNDARY_CLOCK"
+  },
+  {
+    "ipAddress": "10.195.119.140",
+    "slot": "None",
+    "childNodes": [
+      "10.195.119.142"
+    ],
+    "role": "BOUNDARY_CLOCK"
+  },
+  {
+    "ipAddress": "10.195.119.142",
+    "slot": "None",
+    "childNodes": [
+      "10.195.119.165"
+    ],
+    "role": "BOUNDARY_CLOCK"
+  },
+  {
+    "ipAddress": "10.195.119.165",
+    "slot": 0,
+    "childNodes": [],
+    "role": "SLAVE"
+  }
+]

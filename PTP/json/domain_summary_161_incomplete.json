@@ -1,0 +1,65 @@
+{
+  "ptpDomainNumber": 3,
+  "ptpDomainDevicesVo": [
+    {
+      "ptpDeviceLink": {
+        "deviceId": "10.195.119.161",
+        "deviceName": "AB5400-DLR2-SUP-161",
+        "deviceType": "Switch",
+        "protocol": "MULTIPROTOCOL",
+        "portName": "None",
+        "deviceCategoryStr": "Supported"
+      },
+      "role": "GRAND_MASTER",
+      "bmcaRank": 1,
+      "productId": "1783-HMS16TG4CGN",
+      "priority1": 128,
+      "priority2": 128
+    },
+    {
+      "ptpDeviceLink": {
+        "deviceId": "10.195.119.162",
+        "deviceName": "AB5400-DLR2-BSUP-162",
+        "deviceType": "Switch",
+        "protocol": "MULTIPROTOCOL",
+        "portName": "None",
+        "deviceCategoryStr": "Supported"
+      },
+      "role": "BOUNDARY_CLOCK",
+      "bmcaRank": 2,
+      "productId": "1783-HMS8TG8EG4CGN",
+      "priority1": 128,
+      "priority2": 128
+    },
+    {
+      "ptpDeviceLink": {
+        "deviceId": "10.195.119.163",
+        "deviceName": "AB5400-DLR2-NODE-163",
+        "deviceType": "Switch",
+        "protocol": "MULTIPROTOCOL",
+        "portName": "None",
+        "deviceCategoryStr": "Supported"
+      },
+      "role": "BOUNDARY_CLOCK",
+      "bmcaRank": 3,
+      "productId": "1783-HMS4SG8EG4CGN",
+      "priority1": 128,
+      "priority2": 128
+    },
+    {
+      "ptpDeviceLink": {
+        "deviceId": "10.195.119.164",
+        "deviceName": "AB5400-DLR2-NODE-164",
+        "deviceType": "Switch",
+        "protocol": "MULTIPROTOCOL",
+        "portName": "None",
+        "deviceCategoryStr": "Supported"
+      },
+      "role": "TRANSPARENT_CLOCK",
+      "bmcaRank": 4,
+      "productId": "1783-HMS8T4CGN",
+      "priority1": 128,
+      "priority2": 128
+    }
+  ]
+}

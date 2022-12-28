@@ -1,0 +1,33 @@
+{
+  "id": "10.195.119.172",
+  "slot": 2,
+  "role": "GRAND_MASTER",
+  "stepsRemoved": 0,
+  "ptpMasterLink": {
+    "deviceId": "10.195.119.172",
+    "deviceName": "Backplane 1756-A7",
+    "deviceType": "Controller",
+    "protocol": "CIP",
+    "portName": "SLOT-2"
+  },
+  "portStates": [
+    {
+      "portNumber": 1,
+      "portState": "MASTER",
+      "portName": "Backplane"
+    },
+    {
+      "portNumber": 2,
+      "portState": "MASTER",
+      "portName": "A"
+    }
+  ],
+  "ptpGrandMasterLink": {
+    "deviceId": "10.195.119.172",
+    "deviceName": "Backplane 1756-A7",
+    "deviceType": "Controller",
+    "protocol": "CIP",
+    "portName": "SLOT-2"
+  }
+}
+

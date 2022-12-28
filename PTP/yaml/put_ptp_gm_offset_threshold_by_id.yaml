@@ -1,0 +1,271 @@
+testbed:
+  name: PUTPTPGMOffsetThresholdByIDTestbed
+devices:
+  S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      testcaseA:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for invalid device ID type'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          clear_all: 'True'
+          ip_address: 'test'
+          gm_offset_threshold: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseB:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for non-existent device'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.22.4.112'
+          is_ptp: 'False'
+          gm_offset_threshold: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseC:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Put PTP GM Offset Threshold by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_other_device_discovery_profile.json'
+          access_profile_file:
+            - 'testbed_access_profile_cip_discovery.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseD:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for device that is not PTP capable'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '172.27.162.199'
+          licensed: 'False'
+          is_ptp: 'False'
+          gm_offset_threshold: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseE:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Put PTP GM Offset Threshold by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_ptp_device_discovery_profile_2.json'
+          access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseF:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for 10.195.119.170 for Unlicensed state'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.170'
+          licensed: 'False'
+          is_ptp: 'True'
+          is_gm: 'True'
+          gm_offset_threshold: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseG:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for 10.195.119.170 for invalid PTP device ID type'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.170'
+          licensed: 'True'
+          is_ptp: 'True'
+          is_gm: 'True'
+          ptp_device_id: 'test'
+          gm_offset_threshold: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseH:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for 10.195.119.170 for non-existent PTP device ID'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.170'
+          licensed: 'True'
+          is_ptp: 'True'
+          is_gm: 'True'
+          ptp_device_id: '12'
+          gm_offset_threshold: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseI:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for 10.195.119.170'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.170'
+          licensed: 'True'
+          is_ptp: 'True'
+          is_gm: 'True'
+          gm_offset_threshold: 3
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseJ:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for 10.195.119.170 with invalid GM offset type'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.170'
+          licensed: 'True'
+          is_ptp: 'True'
+          is_gm: 'True'
+          gm_offset_threshold: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseK:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for 10.195.119.170 with greater than maximum GM offset value'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.170'
+          licensed: 'True'
+          is_ptp: 'True'
+          is_gm: 'True'
+          gm_offset_threshold: '600000000001'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseL:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for 10.195.119.170 with lesser than minimum GM offset value'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.170'
+          licensed: 'True'
+          is_ptp: 'True'
+          is_gm: 'True'
+          gm_offset_threshold: '-1'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseM:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for non-GM device 10.195.119.171'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.171'
+          licensed: 'True'
+          is_ptp: 'True'
+          is_gm: 'False'
+          gm_offset_threshold: 3
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseN:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Devices for Put PTP GM Offset Threshold by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          discovery_profile_file:
+            - 'testbed_ptp_device_discovery_profile_3.json'
+          access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseO:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for 10.195.119.172'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.172'
+          licensed: 'True'
+          is_ptp: 'True'
+          is_gm: 'True'
+          cip_slot: 2
+          gm_offset_threshold: 3
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseP:
+        function: 'ptp'
+        http_method: 'PUTptpgmoffsetthresholdbyid'
+        entity_title: 'Put PTP GM Offset Threshold for 10.195.119.172: Reset to 0'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter:
+          ip_address: '10.195.119.172'
+          licensed: 'True'
+          is_ptp: 'True'
+          is_gm: 'True'
+          cip_slot: 2
+          gm_offset_threshold: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseZZZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after all Put PTP GM Offset Threshold by ID Tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+    clean:
+      pre_clean: |
+        vrf context management
+      post_clean: |
+        license grace-period
