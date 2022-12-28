@@ -1,0 +1,5 @@
+scriptfiles,yamfiles
+ind_automation_ftnm_licensing.py,get_all_license_files_by_parameter.yaml
+ind_automation_ftnm_licensing.py,get_license_file_by_serial.yaml
+ind_automation_ftnm_licensing.py,get_licensing_status.yaml
+ind_automation_ftnm_licensing.py,get_licensing_summary.yaml

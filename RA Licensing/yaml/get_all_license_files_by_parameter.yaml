@@ -1,0 +1,155 @@
+testbed:
+   name: GetAllLicenseFilesByParameterTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AAAtestcaseClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND before all Get All License Files By Parameter Tests'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+        
+      testcaseA:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:1, offset:0'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: 1
+           offset: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseB:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:2, offset:0'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: 2
+           offset: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseC:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:2, offset:0'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: 2
+           offset: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseD:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:-1, offset:0'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: -1
+           offset: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseE:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:0, offset:0'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: 0
+           offset: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseF:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:1, offset:-1'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: 1
+           offset: -1
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseG:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:461168601, offset:0'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: 461168601
+           offset: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseH:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:461168601, offset:1'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: 461168601
+           offset: 1
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseI:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:null, offset:null'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: 'null'
+           offset: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseJ:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilesbyparameter'
+        entity_title: 'Get License files for limit:9223372036854775807, offset:0'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+           limit: 9223372036854775807
+           offset: 0
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period

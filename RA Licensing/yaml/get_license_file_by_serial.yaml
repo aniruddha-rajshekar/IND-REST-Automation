@@ -1,0 +1,68 @@
+testbed:
+   name: GetLicenseFileBySerialNumberTestbed
+devices: 
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AAAtestcaseClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND before all Get License Files By Serial Number Tests'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+        
+      testcaseA:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilebyserial'
+        entity_title: 'Get single valid License file'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+          serial_number: '3805J00011'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseB:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilebyserial'
+        entity_title: 'Get single valid License file 2'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+          serial_number: '3805J00012'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseC:
+        function: 'ftnm_licensing'
+        http_method: 'GETlicensefilebyserial'
+        entity_title: 'Get single invalid License file'
+        url: 'https://10.195.119.48:8443/api/v1/licensing/files'
+        parameter:
+          serial_number: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period
