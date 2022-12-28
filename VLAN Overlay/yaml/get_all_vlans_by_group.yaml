@@ -1,0 +1,223 @@
+testbed:
+   name: GetAllVlansByGroupTestbed
+devices:
+   S8000-108:
+    type: 'switch'
+    tacacs:
+      login_prompt: "login:"
+      password_prompt: "Password:"
+      username: "admin"
+    passwords:
+      tacacs: cisco
+      enable: cisco
+      line: cisco
+    connections:
+      a:
+        protocol: telnet
+        ip: 172.27.171.123
+        port: 2004
+    custom:
+
+      AtestcaseClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND before Get All Vlans By Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseA:
+        function: 'vlan_overlay'
+        http_method: 'GETvlansbygroup'
+        entity_title: 'Get Vlans for Group ID:1 with no devices in group'
+        url: 'https://10.195.119.103:8443/api/v1/vlans'
+        parameter:
+          group_id: '1'
+          listed_vlans: 'null'
+          licensed: 'False'
+          group_change: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseB:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Other device for Vlans for Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          clear_all: 'False'
+          discovery_profile_file:
+            - 'testbed_snmp_device_discovery_profile.json'
+          access_profile_file:
+            - 'testbed_access_profile_other_discovery.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseC:
+        function: 'vlan_overlay'
+        http_method: 'GETvlansbygroup'
+        entity_title: 'Get Vlans for Group ID:1 with Other device in group'
+        url: 'https://10.195.119.103:8443/api/v1/vlans'
+        parameter:
+          group_id: '1'
+          listed_vlans: 'null'
+          licensed: 'False'
+          group_change: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseD:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Unlicensed device for Vlans for Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          clear_all: 'True'
+          discovery_profile_file:
+            - 'testbed_ie_device_discovery_profile_2.json'
+          access_profile_file:
+            - 'testbed_access_profile_non_secure_mode_2.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseE:
+        function: 'vlan_overlay'
+        http_method: 'GETvlansbygroup'
+        entity_title: 'Get Vlans for Group ID:1 with Unlicensed device in group'
+        url: 'https://10.195.119.103:8443/api/v1/vlans'
+        parameter:
+          group_id: '1'
+          listed_vlans: 'null'
+          licensed: 'False'
+          group_change: 'False'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseF:
+        function: 'vlan_overlay'
+        http_method: 'GETvlansbygroup'
+        entity_title: 'Get Vlans for Group ID:1 with Licensed device in group'
+        url: 'https://10.195.119.103:8443/api/v1/vlans'
+        parameter:
+          group_id: '1'
+          licensed: 'True'
+          group_change: 'False'
+          listed_vlans:
+            - '900'
+            - '11'
+            - '14'
+            - '17'
+            - '44'
+            - '45'
+            - '60'
+            - '100'
+            - '214'
+            - '215'
+            - '220'
+            - '230'
+            - '300'
+            - '500'
+            - '1'
+            - '699'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+
+      testcaseG:
+        function: 'device_discovery'
+        http_method: 'POSTdiscoveryprofilebyid'
+        entity_title: 'Add Unlicensed devices for Vlans for Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/discovery-profiles'
+        parameter:
+          clear_all: 'False'
+          discovery_profile_file:
+            - 'testbed_ie_device_discovery_profile.json'
+          access_profile_file:
+            - 'testbed_access_profile_non_secure_mode.json'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+
+      testcaseH:
+        function: 'vlan_overlay'
+        http_method: 'GETvlansbygroup'
+        entity_title: 'Get Vlans for Group ID:1 by adding Vlans to group'
+        url: 'https://10.195.119.103:8443/api/v1/vlans'
+        parameter:
+          group_id: '1'
+          licensed: 'True'
+          group_change: 'False'
+          listed_vlans:
+            - '11'
+            - '300'
+            - '12'
+            - '111'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Success'
+
+      testcaseI:
+        function: 'vlan_overlay'
+        http_method: 'GETvlansbygroup'
+        entity_title: 'Get Vlans for Group Temp_Group with one Licensed device not in group'
+        url: 'https://10.195.119.103:8443/api/v1/vlans'
+        parameter:
+          group_id: 'Temp_Group'
+          licensed: 'False'
+          listed_vlans:
+            - '12'
+            - '20'
+            - '40'
+            - '111'
+          group_change: 'True'
+          group_name: 'G1'
+          device_to_move: '100.100.100.6'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: 'Error'
+
+      testcaseJ:
+        function: 'vlan_overlay'
+        http_method: 'GETvlansbygroup'
+        entity_title: 'Get Vlans for non-existent Group ID:12'
+        url: 'https://10.195.119.103:8443/api/v1/vlans'
+        parameter:
+          group_id: '12'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '404'
+
+      testcaseK:
+        function: 'vlan_overlay'
+        http_method: 'GETvlansbygroup'
+        entity_title: 'Get Vlans for invalid Group ID:test'
+        url: 'https://10.195.119.103:8443/api/v1/vlans'
+        parameter:
+          group_id: 'test'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '400'
+
+      testcaseZZZZZClearAll:
+        function: 'cleanup'
+        http_method: 'DELETEAll'
+        entity_title: 'Clear IND after Get All Vlans By Group Tests'
+        url: 'https://10.195.119.103:8443/api/v1/devices'
+        parameter: 'null'
+        login: 'SystemAdmin'
+        password: 'Sgbu123!'
+        expected: '200'
+        
+    clean:
+      pre_clean: |
+           vrf context management
+      post_clean: |
+           license grace-period
